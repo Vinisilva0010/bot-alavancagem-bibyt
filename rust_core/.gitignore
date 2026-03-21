@@ -1,1 +1,4 @@
-/target
+echo ".env" >> .gitignore
+echo "rust_core/target/" >> .gitignore
+echo "__pycache__/" >> .gitignore
+echo "*.csv" >> .gitignore

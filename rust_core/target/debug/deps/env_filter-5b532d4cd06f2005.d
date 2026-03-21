@@ -1,0 +1,10 @@
+\\wsl.localhost\Ubuntu\home\vnspo\Apex_V7_Predator\rust_core\target\debug\deps\env_filter-5b532d4cd06f2005.d: C:\Users\vnspo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\env_filter-1.0.0\src\lib.rs C:\Users\vnspo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\env_filter-1.0.0\src\directive.rs C:\Users\vnspo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\env_filter-1.0.0\src\filter.rs C:\Users\vnspo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\env_filter-1.0.0\src\filtered_log.rs C:\Users\vnspo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\env_filter-1.0.0\src\op.rs C:\Users\vnspo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\env_filter-1.0.0\src\parser.rs
+
+\\wsl.localhost\Ubuntu\home\vnspo\Apex_V7_Predator\rust_core\target\debug\deps\libenv_filter-5b532d4cd06f2005.rmeta: C:\Users\vnspo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\env_filter-1.0.0\src\lib.rs C:\Users\vnspo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\env_filter-1.0.0\src\directive.rs C:\Users\vnspo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\env_filter-1.0.0\src\filter.rs C:\Users\vnspo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\env_filter-1.0.0\src\filtered_log.rs C:\Users\vnspo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\env_filter-1.0.0\src\op.rs C:\Users\vnspo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\env_filter-1.0.0\src\parser.rs
+
+C:\Users\vnspo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\env_filter-1.0.0\src\lib.rs:
+C:\Users\vnspo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\env_filter-1.0.0\src\directive.rs:
+C:\Users\vnspo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\env_filter-1.0.0\src\filter.rs:
+C:\Users\vnspo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\env_filter-1.0.0\src\filtered_log.rs:
+C:\Users\vnspo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\env_filter-1.0.0\src\op.rs:
+C:\Users\vnspo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\env_filter-1.0.0\src\parser.rs:
