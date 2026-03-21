@@ -1,0 +1,40 @@
+[package]
+name = "rust_core"
+version = "0.1.0"
+edition = "2021"
+authors = ["Vinicius Pontual <ceo@zanvexis.com>"]
+description = "Apex Predator V8 — New Listing Alpha + Telemetry Engine | BingX Futures"
+
+# Otimização extrema de compilação para o binário final (Release)
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+
+[dependencies]
+# 1. O Motor Assíncrono (O Coração da Concorrência)
+tokio = { version = "1.37.0", features = ["full"] }
+flate2 = "1.0"
+# 2. WebSocket de Alta Performance (Para sugar a OKX)
+tokio-tungstenite = { version = "0.21.0", features = ["rustls-tls-native-roots"] }
+futures-util = "0.3.30"
+
+# 3. Serialização e Desserialização (Transformar o HEX/JSON em variáveis)
+serde = { version = "1.0.200", features = ["derive"] }
+serde_json = "1.0.116"
+
+# 4. Criptografia de Nível Bancário (Para assinar as ordens Maker na OKX)
+hmac = "0.12.1"
+sha2 = "0.10.8"
+hex = "0.4.3"
+
+# 5. Requisições REST (Para pegar as configurações iniciais da conta)
+# Usando rustls para evitar dor de cabeça com OpenSSL no Ubuntu
+reqwest = { version = "0.12.3", features = ["json", "rustls-tls"], default-features = false }
+
+# 6. Telemetria e Tempo (Logs milissegundo a milissegundo)
+chrono = "0.4.38"
+log = "0.4.21"
+env_logger = "0.11.3"
+dotenv = "0.15.0"
