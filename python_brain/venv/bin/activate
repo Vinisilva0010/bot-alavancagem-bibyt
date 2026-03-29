@@ -39,10 +39,10 @@ deactivate nondestructive
 if [ "${OSTYPE:-}" = "cygwin" ] || [ "${OSTYPE:-}" = "msys" ] ; then
     # transform D:\path\to\venv to /d/path/to/venv on MSYS
     # and to /cygdrive/d/path/to/venv on Cygwin
-    export VIRTUAL_ENV=$(cygpath /home/vnspo/Apex_V7_Predator/python_brain/venv)
+    export VIRTUAL_ENV=$(cygpath /home/ubuntu/bot-alavancagem-bibyt/python_brain/venv)
 else
     # use the path as-is
-    export VIRTUAL_ENV=/home/vnspo/Apex_V7_Predator/python_brain/venv
+    export VIRTUAL_ENV=/home/ubuntu/bot-alavancagem-bibyt/python_brain/venv
 fi
 
 _OLD_VIRTUAL_PATH="$PATH"
