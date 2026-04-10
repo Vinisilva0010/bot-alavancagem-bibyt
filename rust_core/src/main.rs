@@ -23,6 +23,7 @@ mod ipc_health;
 mod quarantine;
 mod score;
 mod symbol_filter;
+mod circuit_breaker;
 
 use ipc_health::{IpcHealthAction, IpcHealthMonitor};
 use quarantine::QuarantineManager;
@@ -761,6 +762,9 @@ async fn main() {
         .map(|s| (s.clone(), NewListingCoinState::new(now)))
         .collect();
 
+        // --- GENERAL (Circuit Breaker Macro) ---
+    let mut macro_breaker = circuit_breaker::MacroCircuitBreaker::new();
+
     // --- Ticker polling ---
     let ticker_map: TickerMap = Arc::new(Mutex::new(HashMap::new()));
     tokio::spawn(ticker_polling_loop(
@@ -851,6 +855,12 @@ async fn main() {
 
         let current_syms = active_symbols.lock().await.clone();
         for symbol in &current_syms {
+            let mut all_ws_syms = current_syms.clone();
+        if !all_ws_syms.contains(&"BTC-USDT".to_string()) {
+            all_ws_syms.push("BTC-USDT".to_string());
+        }
+        
+        for symbol in &all_ws_syms { // <--- MUDE DE current_syms PARA all_ws_syms
             let sub = json!({"id": "1", "reqType": "sub", "dataType": format!("{}@kline_1m", symbol)});
             if ws.send(Message::Text(sub.to_string())).await.is_err() {
                 error!("❌ Sub kline {} falhou. Reconectando...", symbol);
@@ -1106,6 +1116,10 @@ async fn main() {
                             continue; // IPC degradado ou em HALT — não entrar
                         }
 
+                        if macro_breaker.is_tripped(now) {
+                            continue; // Lockdown Macro Ativo. O Sniper está proibido de atirar.
+                        }
+
                         // Camada 2: quarentena inteligente
                         if !state.quarantine.can_trade() {
                             continue; // Em quarentena — não entrar
@@ -1263,6 +1277,10 @@ async fn main() {
                             .and_then(|t| t.as_i64()
                                 .or_else(|| t.as_str().and_then(|s| s.parse().ok())))
                             .unwrap_or_else(|| Utc::now().timestamp());
+                        if symbol == "BTC-USDT" {
+                            macro_breaker.process_kline(&symbol, c, ts_kline);
+                            continue; // O BTC não vai pro motor de trade, ele morre aqui.
+                        }
 
                         if let Some(state) = market_state.get_mut(&symbol) {
                             let range = h - l;
