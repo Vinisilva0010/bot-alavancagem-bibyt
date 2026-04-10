@@ -853,14 +853,16 @@ async fn main() {
             }
         };
 
-        let current_syms = active_symbols.lock().await.clone();
-        for symbol in &current_syms {
-            let mut all_ws_syms = current_syms.clone();
+       let current_syms = active_symbols.lock().await.clone();
+        
+        // --- INÍCIO DA ASSINATURA DO REI ---
+        let mut all_ws_syms = current_syms.clone();
         if !all_ws_syms.contains(&"BTC-USDT".to_string()) {
             all_ws_syms.push("BTC-USDT".to_string());
         }
         
-        for symbol in &all_ws_syms { // <--- MUDE DE current_syms PARA all_ws_syms
+        // Aqui a gente usa APENAS o loop novo!
+        for symbol in &all_ws_syms { 
             let sub = json!({"id": "1", "reqType": "sub", "dataType": format!("{}@kline_1m", symbol)});
             if ws.send(Message::Text(sub.to_string())).await.is_err() {
                 error!("❌ Sub kline {} falhou. Reconectando...", symbol);
@@ -868,6 +870,7 @@ async fn main() {
             }
             tokio::time::sleep(tokio::time::Duration::from_millis(50)).await;
         }
+        // --- FIM DA ASSINATURA DO REI ---
 
         info!("📡 Subscrições ativas para {} símbolos. Telemetria rodando.", current_syms.len());
 
@@ -1308,3 +1311,4 @@ async fn main() {
         tokio::time::sleep(tokio::time::Duration::from_secs(3)).await;
     } // fim 'reconnect
 
+    }
