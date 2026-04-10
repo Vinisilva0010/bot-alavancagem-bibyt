@@ -1307,4 +1307,4 @@ async fn main() {
         warn!("🔄 Reconectando em 3s...");
         tokio::time::sleep(tokio::time::Duration::from_secs(3)).await;
     } // fim 'reconnect
-}
+
