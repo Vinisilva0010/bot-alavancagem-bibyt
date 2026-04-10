@@ -5,3 +5,7 @@ target/
 *.csv
 .env
 __pycache__/
+venv/
+.venv/
+**/venv/
+**/.venv/
