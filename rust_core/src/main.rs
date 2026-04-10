@@ -1251,7 +1251,14 @@ async fn main() {
                         let l = parse_f("l");
                         let c = parse_f("c");
                         // V9.1: campo v = volume da vela (não volume_24h acumulador)
-                        let v = parse_f("v");
+                        let mut v = parse_f("v");
+                        let financeiro_usdt = v * c;
+                        
+                        if financeiro_usdt < 3000.0 {
+                            // Se a vela não girou nem 3 mil dólares, é cidade fantasma.
+                            // Forçamos o volume pra ZERO. A nota final no score.rs não vai bater 0.80.
+                            v = 0.0; 
+                        }
                         let ts_kline = kd.get("T")
                             .and_then(|t| t.as_i64()
                                 .or_else(|| t.as_str().and_then(|s| s.parse().ok())))

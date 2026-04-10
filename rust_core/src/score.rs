@@ -22,7 +22,7 @@
 // =============================================================================
 
 /// Score mínimo para disparar entrada (produto ∈ [0.0, 1.0])
-pub const MIN_SIGNAL_SCORE_F64: f64 = 0.55;
+pub const MIN_SIGNAL_SCORE_F64: f64 = 0.80;
 
 /// Desvio padrão "esperado" do funding rate para normalização.
 /// Funding rate de cripto fica normalmente entre ±0.01% a ±0.05%.
@@ -145,7 +145,19 @@ pub fn factor_regime(atr_current: f64, atr_median: f64) -> f64 {
     if atr_median <= 0.0 || atr_current <= 0.0 {
         return 0.0;
     }
-    let ratio = atr_current / atr_median;
+    
+    // --- INÍCIO DO FILTRO DE FERIADO ---
+    // Cria um piso artificial para o denominador. 
+    // Se a média do mercado for menor que 0.05% de volatilidade por minuto,
+    // usamos o piso para impedir o "Efeito Estilingue".
+    let piso_de_seguranca = 0.0005; 
+    let atr_median_blindado = atr_median.max(piso_de_seguranca);
+    
+    let ratio = atr_current / atr_median_blindado;
+    // --- FIM DO FILTRO DE FERIADO ---
+
+    // Normaliza: ratio == ATR_REGIME_THRESHOLD → output = 0.5
+
     // Normaliza: ratio == ATR_REGIME_THRESHOLD → output = 0.5
     // ratio < 1.0 → 0, ratio == threshold → 0.5, ratio > 2×threshold → ~1.0
     let normalized = (ratio - 1.0) / (ATR_REGIME_THRESHOLD - 1.0);
